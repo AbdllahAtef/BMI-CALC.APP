@@ -22,7 +22,6 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    final cardHeight = screenHeight * 0.22;
 
     return Scaffold(
       backgroundColor: const Color(0xff0A0E21),
@@ -64,24 +63,27 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
             ),
             SizedBox(height: screenHeight * 0.025),
             SizedBox(
-              height: cardHeight,
+              height: screenHeight * 0.25, // خليه نسبة واضحة من الشاشة
               child: Card(
                 color: const Color(0xFF1D1E33),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: screenHeight * 0.02,
-                    horizontal: screenWidth * 0.04,
+                    horizontal: screenWidth * 0.05,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Height',
                         style: TextStyle(
-                          fontSize: screenHeight * 0.02,
+                          fontSize: screenHeight * 0.022,
                           color: Colors.white.withOpacity(0.5),
                         ),
                       ),
+                      SizedBox(height: screenHeight * 0.015),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -99,26 +101,32 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
                           Text(
                             'cm',
                             style: TextStyle(
-                              fontSize: screenHeight * 0.02,
+                              fontSize: screenHeight * 0.022,
                               color: Colors.white.withOpacity(0.5),
                             ),
                           ),
                         ],
                       ),
-                      Slider(
-                        value: height.toDouble(),
-                        min: 100,
-                        max: 250,
-                        activeColor: Colors.red,
-                        inactiveColor: Colors.white,
-                        onChanged: (val) =>
-                            setState(() => height = val.toInt()),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Slider(
+                            value: height.toDouble(),
+                            min: 100,
+                            max: 250,
+                            activeColor: Colors.red,
+                            inactiveColor: Colors.white,
+                            onChanged: (val) =>
+                                setState(() => height = val.toInt()),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
+
             SizedBox(height: screenHeight * 0.025),
             Row(
               children: [

@@ -14,51 +14,70 @@ class CounterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
       child: Card(
         color: const Color(0xFF1D1E33),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style: const TextStyle(fontSize: 18, color: Colors.white),
-            ),
-            Text(
-              '$value',
-              style: const TextStyle(fontSize: 50, color: Colors.white),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Row(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: screenHeight * 0.025),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: screenHeight * 0.022,
+                  color: Colors.white.withOpacity(0.8),
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.005),
+              Text(
+                '$value',
+                style: TextStyle(
+                  fontSize: screenHeight * 0.06,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.015),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: const Color(0xFF4C4F5E),
-                    child: IconButton(
-                      color: Colors.white,
-                      icon: const Icon(Icons.remove),
-                      onPressed: () => onChanged(value - 1),
-                    ),
+                  _buildActionButton(
+                    icon: Icons.remove,
+                    onPressed: () => onChanged(value - 1),
+                    size: screenWidth * 0.12,
                   ),
-                  const SizedBox(width: 10),
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: const Color(0xFF4C4F5E),
-                    child: IconButton(
-                      color: Colors.white,
-                      icon: const Icon(Icons.add),
-                      onPressed: () => onChanged(value + 1),
-                    ),
+                  SizedBox(width: screenWidth * 0.04),
+                  _buildActionButton(
+                    icon: Icons.add,
+                    onPressed: () => onChanged(value + 1),
+                    size: screenWidth * 0.12,
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildActionButton({
+    required IconData icon,
+    required VoidCallback onPressed,
+    required double size,
+  }) {
+    return CircleAvatar(
+      radius: size / 2,
+      backgroundColor: const Color(0xFF4C4F5E),
+      child: IconButton(
+        icon: Icon(icon, size: size * 0.5),
+        color: Colors.white,
+        onPressed: onPressed,
       ),
     );
   }
