@@ -8,7 +8,6 @@ class GenderButton extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
   });
-
   final String gender;
   final IconData icon;
   final bool isSelected;
@@ -16,37 +15,31 @@ class GenderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    final buttonWidth = screenWidth * 0.42;
-    final buttonHeight = screenHeight * 0.22;
-
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          height: buttonHeight,
-          width: buttonWidth,
+          height: 160,
+          width: 170,
           decoration: BoxDecoration(
             color: isSelected
                 ? const Color(0xff1D1E33)
                 : const Color(0xff111328),
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           child: Padding(
-            padding: EdgeInsets.all(screenWidth * 0.035),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Icon(icon, color: Colors.white, size: screenHeight * 0.08),
+                Icon(icon, color: Colors.white, size: 100),
                 Text(
                   gender,
                   style: TextStyle(
+                    // ignore: deprecated_member_use
                     color: Colors.white.withOpacity(0.5),
-                    fontSize: screenHeight * 0.022,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
                   ),
                 ),
               ],
